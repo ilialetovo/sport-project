@@ -1,0 +1,70 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Карта с метками</title>
+    <link rel="stylesheet" href="{% static 'css/style.css'%}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" >
+
+    <meta charset="utf-8">
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=e033a42b-a1da-4f67-9d8c-adb5df401b71&lang=ru_RU" type="text/javascript"></script>
+</head>
+<body>
+
+<div id="map"></div>
+<div id="info">
+    <h2>Футбол</h2>
+    <p>Футбол является самым популярным видом спорта как в Испании, так и в Бразилии. В Испании футбол чрезвычайно популярен благодаря высокому уровню испанской Ла Лиги и успехам сборной страны на международной арене. В Бразилии футбол является не просто спортом, а национальной страстью, сборная Бразилии является одной из самых успешных в истории футбола.</p>
+    <a href="{% url 'index'%}"><button class="btn btn-info"><i class="fa-regular fa-paper-plane"></i> Назад </button>
+</div>
+
+<script>
+    ymaps.ready(init);
+
+    function init() {
+        var myMap = new ymaps.Map("map", {
+            center: [0, 0],
+            zoom: 2.5,
+            restrictMapArea: [[85, -180], [-85, 180]] // Ограничение на область карты
+        });
+
+           var brazilia = new ymaps.Polygon([    [[-30, -60], [-30, -40], [-5, -40], [-5, -60], [-30, -60]]
+    ], {
+        hintContent: 'Бразилия',
+        balloonContent: 'Футбол - самый популярный вид спорта в Бразилии и заметная часть национальной идентичности страны. Сборная Бразилии по футболу выигрывала чемпионат мира по футболу пять раз, больше, чем любая другая команда, в 1958, 1962, 1970, 1994 и 2002 годах.'
+    }, {
+        fillColor: 'rgba(50, 50, 100, 0.5)', // Цвет заливки темно-синий
+        strokeColor: 'rgba(0, 0, 100, 1)' // Цвет обводки синий
+    });
+
+    var spain = new ymaps.Polygon([    [[35, -10], [35, 0], [45, 0], [45, -10], [35, -10]]
+    ], {
+        hintContent: 'Испания',
+        balloonContent: 'Футбол в Испании занимает первое место среди самых популярных видов спорта в Испании, опережая баскетбол и теннис, и называется исследователями одним из главных увлечений среди испанцев. Этот вид спорта лидирует по числу зарегистрированных профессиональных игроков (898 551 мужчина и 44 123 женщины, итого 942 674 человека) и клубов (20 588) среди всех спортивных федераций Испании по состоянию на 2016 год.'
+    }, {
+        fillColor: 'rgba(50, 50, 100, 0.5)', // Цвет заливки темно-синий
+        strokeColor: 'rgba(0, 0, 100, 1)' // Цвет обводки синий
+    });
+
+    var germanyPolygon = new ymaps.Polygon([    [    [55.0574, 5.8663],
+        [55.0574, 15.0421],
+        [47.2701, 15.0421],
+        [47.2701, 5.8663],
+        ]
+        ], {
+        hintContent: 'Германия',
+        balloonContent: 'Футбол в Германии имеет богатую историю, а национальная сборная Германии по футболу является одной из самых успешных в мире. Сборная Германии четырежды выигрывала чемпионат мира по футболу - в 1954, 1974, 1990 и 2014 годах.'
+        }, {
+        fillColor: 'rgba(50, 50, 100, 0.5)', // Цвет заливки темно-синий
+        strokeColor: 'rgba(0, 0, 100, 1)' // Цвет обводки синий
+    });
+
+    myMap.geoObjects.add(germanyPolygon);
+
+    myMap.geoObjects.add(brazilia);
+    myMap.geoObjects.add(spain);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+{% load static %}
+ <!DOCTYPE html>
+<html>
+<head>
+<title>Лыжи</title>
+<link rel="stylesheet" href="{% static 'css/style.css'%}">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" >
+
+<meta charset="utf-8">
+<script src="https://api-maps.yandex.ru/2.1/?apikey=e033a42b-a1da-4f67-9d8c-adb5df401b71&lang=ru_RU" type="text/javascript"></script>
+</head>
+<body>
+
+<div id="map"></div>
+<div id="info">
+<h2>Лыжи</h2>
+<p>Лыжный спорт является самым популярным видом спорта как в Норвегии, так и в Швеции. В Норвегии лыжный спорт традиционно важен для местного населения, а также является частью культурного наследия страны. В Швеции очень популярны беговые лыжи и биатлон, и шведские спортсмены часто добиваются успеха на международных соревнованиях.</p>
+<a href="{% url 'index'%}"><button class="btn btn-info"><i class="fa-regular fa-paper-plane"></i> Назад </button> </a>
+</div>
+
+<script>
+ymaps.ready(init);
+
+function init() {
+var myMap = new ymaps.Map("map", {
+center: [0, 0],
+zoom: 2.5,
+restrictMapArea: [[85, -180], [-85, 180]] // Restriction on map area
+});
+
+var norwayPolygon = new ymaps.Polygon([
+[[70, 10], [70, 30], [55, 30], [55, 10], [70, 10]]
+], {
+hintContent: 'Норвегия',
+balloonContent: 'Катание на лыжах в Норвегии имеет давние традиции и большую популярность среди местного населения. Норвежские лыжники часто выигрывают международные соревнования по лыжным гонкам и биатлону.'
+}, {
+fillColor: 'rgba(50, 50, 100, 0.5)', // Fill color dark blue
+strokeColor: 'rgba(0, 0, 100, 1)' // Stroke color blue
+});
+
+var swedenPolygon = new ymaps.Polygon([
+[[65, 10], [65, 30], [50, 30], [50, 10], [65, 10]]
+], {
+hintContent: 'Швеция',
+balloonContent: 'Лыжные гонки и биатлон - популярные виды спорта в Швеции. Шведские спортсмены часто добиваются успехов на международных соревнованиях и Олимпийских играх в лыжных дисциплинах.'
+}, {
+fillColor: 'rgba(50, 50, 100, 0.5)', // Fill color dark blue
+strokeColor: 'rgba(0, 0, 100, 1)' // Stroke color blue
+});
+
+var finlandPolygon = new ymaps.Polygon([
+[[70, 30], [70, 50], [55, 50], [55, 30], [70, 30]]
+], {
+hintContent: 'Финляндия',
+balloonContent: 'Финляндия известна своими лыжными традициями и успешными спортсменами в беговых лыжах и прыжках с трамплина. Лыжный спорт - один из самых популярных видов спорта в Финляндии'
+}, {
+fillColor: 'rgba(50, 50, 100, 0.5)', // Fill color dark blue
+strokeColor: 'rgba(0, 0, 100, 1)' // Stroke color blue
+});
+
+myMap.geoObjects.add(norwayPolygon);
+myMap.geoObjects.add(swedenPolygon);
+myMap.geoObjects.add(finlandPolygon);
+}
+</script>
+</body>
+</html>

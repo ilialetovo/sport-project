@@ -1,0 +1,68 @@
+{% load static %}
+ <!DOCTYPE html>
+<html>
+<head>
+<title>Плавание</title>
+<link rel="stylesheet" href="{% static 'css/style.css'%}">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" >
+
+<meta charset="utf-8">
+<script src="https://api-maps.yandex.ru/2.1/?apikey=e033a42b-a1da-4f67-9d8c-adb5df401b71&lang=ru_RU" type="text/javascript"></script>
+</head>
+<body>
+
+<div id="map"></div>
+<div id="info">
+<h2>Плавание</h2>
+<p>Плавание - самый популярный вид спорта как в Австралии, так и в Японии. Плавание имеет долгую и успешную историю в Австралии, со многими олимпийскими чемпионами и выдающимися спортсменами. В Японии плавание также пользуется большим спросом, как среди профессиональных спортсменов, так и среди любителей.</p>
+<a href="{% url 'index'%}"><button class="btn btn-info"><i class="fa-regular fa-paper-plane"></i> Назад </button> </a>
+</div>
+
+<script>
+ymaps.ready(init);
+
+function init() {
+var myMap = new ymaps.Map("map", {
+center: [0, 0],
+zoom: 2.5,
+restrictMapArea: [[85, -180], [-85, 180]] // Restriction on map area
+});
+
+var australiaPolygon = new ymaps.Polygon([
+[[-10, 110], [-10, 155], [-45, 155], [-45, 110], [-10, 110]]
+], {
+hintContent: 'Австралия',
+balloonContent: 'Плавание - один из самых популярных видов спорта в Австралии, где страна славится своими спортсменами и олимпийскими чемпионами в этом виде спорта.'
+}, {
+fillColor: 'rgba(50, 50, 100, 0.5)', // Fill color dark blue
+strokeColor: 'rgba(0, 0, 100, 1)' // Stroke color blue
+});
+
+var japanPolygon = new ymaps.Polygon([
+[[40, 125], [40, 145], [25, 145], [25, 125], [40, 125]]
+], {
+hintContent: 'Япония',
+balloonContent: 'Плавание очень популярно в Японии как среди профессиональных спортсменов, так и среди любителей. Японские пловцы часто добиваются успеха на международных соревнованиях.'
+}, {
+fillColor: 'rgba(50, 50, 100, 0.5)', // Fill color dark blue
+strokeColor: 'rgba(0, 0, 100, 1)' // Stroke color blue
+});
+
+var chinaPolygon = new ymaps.Polygon([
+[[50, 75], [50, 125], [20, 125], [20, 75], [50, 75]]
+], {
+hintContent: 'Китай',
+balloonContent: 'Плавание является одним из самых популярных видов спорта в Китае и имеет множество школ и клубов по всей стране.'
+}, {
+fillColor: 'rgba(50, 50, 100, 0.5)', // Fill color dark blue
+strokeColor: 'rgba(0, 0, 100, 1)' // Stroke color blue
+});
+
+myMap.geoObjects.add(australiaPolygon);
+myMap.geoObjects.add(japanPolygon);
+myMap.geoObjects.add(chinaPolygon);
+}
+</script>
+</body>
+</html>

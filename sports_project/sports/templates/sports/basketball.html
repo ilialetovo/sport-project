@@ -1,0 +1,68 @@
+{% load static %}
+ <!DOCTYPE html>
+<html>
+<head>
+<title>Баскетбол</title>
+<link rel="stylesheet" href="{% static 'css/style.css'%}">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" >
+
+<meta charset="utf-8">
+<script src="https://api-maps.yandex.ru/2.1/?apikey=e033a42b-a1da-4f67-9d8c-adb5df401b71&lang=ru_RU" type="text/javascript"></script>
+</head>
+<body>
+
+<div id="map"></div>
+<div id="info">
+<h2>Баскетбол</h2>
+<p>Баскетбол является самым популярным видом спорта как в США, так и в Испании. В Соединенных Штатах баскетбол считается национальной страстью, а Национальная баскетбольная ассоциация (НБА) является одной из самых популярных и коммерчески успешных лиг в мире. В Испании баскетбол также чрезвычайно популярен благодаря многочисленным клубам и высокому уровню профессионализма.</p>
+<a href="{% url 'index'%}"><button class="btn btn-info"><i class="fa-regular fa-paper-plane"></i> Назад </button> </a>
+</div>
+
+<script>
+ymaps.ready(init);
+
+function init() {
+var myMap = new ymaps.Map("map", {
+center: [0, 0],
+zoom: 2.5,
+restrictMapArea: [[85, -180], [-85, 180]] // Restriction on map area
+});
+
+var usaPolygon = new ymaps.Polygon([
+[[49, -125], [49, -65], [25, -65], [25, -125], [49, -125]]
+], {
+hintContent: 'США',
+balloonContent: 'Баскетбол является национальной страстью в США, где Национальная баскетбольная ассоциация (NBA) привлекает миллионы болельщиков со всего мира. Баскетбольные матчи в США часто считаются одними из самых захватывающих и зрелищных в мире.'
+}, {
+fillColor: 'rgba(50, 50, 100, 0.5)', // Fill color dark blue
+strokeColor: 'rgba(0, 0, 100, 1)' // Stroke color blue
+});
+
+var spainPolygon = new ymaps.Polygon([
+[[45, -10], [45, 5], [35, 5], [35, -10], [45, -10]]
+], {
+hintContent: 'Испания',
+balloonContent: 'Баскетбол также имеет большое количество поклонников в Испании, где профессиональные лиги и клубы привлекают как игроков, так и зрителей. Испанские баскетбольные команды часто добиваются успеха на международных турнирах.'
+}, {
+fillColor: 'rgba(50, 50, 100, 0.5)', // Fill color dark blue
+strokeColor: 'rgba(0, 0, 100, 1)' // Stroke color blue
+});
+
+var germanyPolygon = new ymaps.Polygon([
+[[55.0574, 5.8663], [55.0574, 15.0421], [47.2701, 15.0421], [47.2701, 5.8663], [55.0574, 5.8663]]
+], {
+hintContent: 'Германия',
+balloonContent: 'Популярный вид спорта в Германии, в который играют как на любительском, так и на профессиональном уровнях. Баскетбол имеет долгую историю в Германии, и его популярность развивалась медленно. Сегодня баскетбол является одним из самых популярных видов спорта в Германии.'
+}, {
+fillColor: 'rgba(50, 50, 100, 0.5)', // Fill color dark blue
+strokeColor: 'rgba(0, 0, 100, 1)' // Stroke color blue
+});
+
+myMap.geoObjects.add(usaPolygon);
+myMap.geoObjects.add(spainPolygon);
+myMap.geoObjects.add(germanyPolygon);
+}
+</script>
+</body>
+</html>
